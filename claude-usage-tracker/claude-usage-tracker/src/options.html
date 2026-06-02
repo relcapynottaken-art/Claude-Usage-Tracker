@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Claude Usage Tracker — Settings</title>
+    <style>
+      body {
+        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+        max-width: 520px;
+        margin: 24px auto;
+        padding: 0 16px;
+        color: #1f2937;
+      }
+      h1 { font-size: 18px; }
+      .row { margin: 14px 0; display: flex; flex-direction: column; gap: 4px; }
+      label { font-weight: 600; font-size: 13px; }
+      .hint { font-size: 12px; color: #6b7280; }
+      input[type="number"], input[type="text"] {
+        padding: 6px 8px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 13px;
+      }
+      .inline { flex-direction: row; align-items: center; gap: 8px; }
+      button {
+        margin-top: 12px; padding: 8px 14px; border: 0; border-radius: 6px;
+        background: #3b82f6; color: #fff; font-weight: 600; cursor: pointer;
+      }
+      .saved { color: #16a34a; font-size: 13px; margin-left: 10px; }
+      code { background: #f3f4f6; padding: 1px 5px; border-radius: 4px; }
+    </style>
+  </head>
+  <body>
+    <h1>Claude Usage Tracker — Settings</h1>
+
+    <div class="row inline">
+      <input type="checkbox" id="showTokens" />
+      <label for="showTokens">Show estimated token counter in header</label>
+    </div>
+
+    <div class="row">
+      <label for="pollSeconds">Refresh interval (seconds)</label>
+      <input type="number" id="pollSeconds" min="30" step="5" />
+      <span class="hint">Minimum 30s to be gentle on the server.</span>
+    </div>
+
+    <div class="row">
+      <label for="amberAt">Turn amber at (%)</label>
+      <input type="number" id="amberAt" min="1" max="100" />
+    </div>
+
+    <div class="row">
+      <label for="redAt">Turn red at (%)</label>
+      <input type="number" id="redAt" min="1" max="100" />
+    </div>
+
+    <div class="row">
+      <label for="decimals">Decimal places shown</label>
+      <input type="number" id="decimals" min="0" max="4" />
+      <span class="hint">Note: real precision is limited by what the usage API returns (often whole numbers).</span>
+    </div>
+
+    <div class="row">
+      <label for="endpoint">Usage endpoint (advanced)</label>
+      <input type="text" id="endpoint" placeholder="(learned automatically — leave blank)" />
+      <span class="hint">
+        Normally left blank. The extension learns this automatically once you open
+        <code>Settings → Usage</code> on claude.ai. To set it manually, open DevTools →
+        Network on that page, find the request whose response contains
+        <code>five_hour</code>/<code>seven_day</code>, and paste its full URL here.
+      </span>
+    </div>
+
+    <button id="save">Save</button>
+    <span class="saved" id="saved" hidden>Saved ✓</span>
+
+    <script src="options.js"></script>
+  </body>
+</html>

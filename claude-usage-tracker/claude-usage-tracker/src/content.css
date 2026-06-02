@@ -1,0 +1,123 @@
+/* Injected UI. Kept deliberately minimal so it blends into claude.ai.
+   Colors are CSS variables so the blue/amber/red thresholds are easy to theme. */
+#cut-bars {
+  --cut-blue: #3b82f6;
+  --cut-amber: #f59e0b;
+  --cut-red: #ef4444;
+  --cut-muted: #9ca3af;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto 8px auto;
+  padding: 6px 10px;
+  box-sizing: border-box;
+  /* Never intercept clicks or keystrokes meant for the composer, even if a
+     layout reflow briefly overlaps it. The bars are display-only. */
+  pointer-events: none;
+  position: relative;
+  z-index: 1;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 11px;
+  line-height: 1.2;
+  border-radius: 8px;
+  background: color-mix(in srgb, currentColor 4%, transparent);
+}
+
+/* If we couldn't anchor to the composer, pin to the bottom-centre of the
+   viewport so the bars are still "always visible". */
+#cut-bars.cut-floating {
+  position: fixed;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  width: min(680px, 92vw);
+  z-index: 2147483646;
+  background: rgba(127, 127, 127, 0.12);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+}
+
+/* Pinned to the top of the screen — always visible regardless of scroll.
+   Sits a little below the very top so it clears Claude's own header bar. */
+#cut-bars.cut-pinned-top {
+  position: fixed;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(620px, 92vw);
+  z-index: 2147483646;
+  background: rgba(40, 40, 45, 0.82);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(127, 127, 127, 0.22);
+}
+
+#cut-bars .cut-row {
+  display: grid;
+  grid-template-columns: 52px 1fr 64px 72px;
+  align-items: center;
+  gap: 8px;
+}
+
+#cut-bars .cut-reset {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-size: 10px;
+  opacity: 0.65;
+  white-space: nowrap;
+}
+
+#cut-bars .cut-label {
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+#cut-bars .cut-track {
+  position: relative;
+  height: 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, currentColor 14%, transparent);
+  overflow: hidden;
+}
+
+#cut-bars .cut-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  transition: width 0.4s ease, background 0.3s ease;
+}
+
+#cut-bars .cut-val {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Header token badge */
+#cut-tokens {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  opacity: 0.85;
+  background: color-mix(in srgb, currentColor 10%, transparent);
+  white-space: nowrap;
+}
+
+#cut-tokens.cut-floating-badge {
+  position: fixed;
+  top: 10px;
+  right: 12px;
+  z-index: 2147483646;
+  background: rgba(127, 127, 127, 0.15);
+  backdrop-filter: blur(6px);
+}
