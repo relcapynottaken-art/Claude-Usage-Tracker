@@ -152,7 +152,7 @@ Issues and PRs welcome. A few useful starting points:
 
 ## License
 
-MIT — do whatever you want with it.
+ Apache License
 
 ---
 
